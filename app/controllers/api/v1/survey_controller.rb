@@ -1,22 +1,23 @@
 class Api::V1::SurveyController < ApplicationController
 	def index
 	    @surveys = Survey.all
-	    render json: @surveys.to_json(:include => :options)
+	    render :json => @surveys
 	end
 
 	def show
 	    @survey = Survey.find(params[:id])
-	    render json: @survey.to_json(:include => :options)
+	    render :json => @survey
 	end
 
 	def create
 		@survey = Survey.new(attributify(:survey))
 		if @survey.save
-			render json: @survey.to_json(:include => :options), status: 201
+			render :json => @survey
 		end
 	end
 	def update
-    	@survey = Survey.find(params[:id]).to_json(:include => :options)
+    	@survey = Survey.find(params[:id])
+    	render :json => @survey
 	end
 
 	def destroy
@@ -27,7 +28,4 @@ class Api::V1::SurveyController < ApplicationController
           format.json { head :no_content }
     	end
   end
-  
-  private
-  
 end
