@@ -10,9 +10,10 @@ class Api::V1::SurveyController < ApplicationController
 	end
 
 	def create
-		@survey = Survey.new(params[:survey])
-		puts @survey.title
-		render json: @survey.to_json(:include => :options), status: 201
+		@survey = Survey.new(attributify(:survey))
+		if @survey.save
+			render json: @survey.to_json(:include => :options), status: 201
+		end
 	end
 	def update
     	@survey = Survey.find(params[:id]).to_json(:include => :options)
