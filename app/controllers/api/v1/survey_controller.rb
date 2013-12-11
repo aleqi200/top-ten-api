@@ -13,6 +13,8 @@ class Api::V1::SurveyController < ApplicationController
 		@survey = Survey.new(attributify(:survey))
 		if @survey.save
 			render :json => @survey
+		else
+			render json: @survey.errors, status: :unprocessable_entity 
 		end
 	end
 	def update
