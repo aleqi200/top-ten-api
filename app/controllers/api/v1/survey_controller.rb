@@ -17,7 +17,9 @@ class Api::V1::SurveyController < ApplicationController
 	end
 	def update
     	@survey = Survey.find(params[:id])
-    	render :json => @survey
+    	if @survey.update_attributes(attributify(:survey))
+    		render :json => @survey
+    	end
 	end
 
 	def destroy
